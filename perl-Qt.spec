@@ -3,16 +3,16 @@
 %bcond_without	tests		# do not perform "make test"
 #
 %include	/usr/lib/rpm/macros.perl
-%define	pdir	Qt
+%define	pdir	PerlQt
 Summary:	Qt - A Perl module interface to Qt
 Summary(pl.UTF-8):	Qt - interfejs Perla do Qt
 Name:		perl-Qt
-Version:	0.03
+Version:	3.008
 Release:	0.1
-License:	GPL v1+ or Artistic
+License:	GPL
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/Qt/%{pdir}-%{version}.tar.gz
-# Source0-md5:	8a6c80b457edd2c85d45ef8228991a3c
+# Source0-md5:	a0cdc0c86b3e79c56f09f2af8c4c2c39
 URL:		http://search.cpan.org/dist/Qt/
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov >= 4.1-13
@@ -40,6 +40,7 @@ Interfejs Perla do Qt.
 
 %build
 %{__perl} Makefile.PL \
+	--with-qt-dir=%{_libdir} \
 	INSTALLDIRS=vendor
 
 %{__make} \
