@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	tests		# do not perform "make test"
+%bcond_with	tests		# do not perform "make test"
 #
 %include	/usr/lib/rpm/macros.perl
 %define	pdir	PerlQt
@@ -14,8 +14,14 @@ Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/Qt/%{pdir}-%{version}.tar.gz
 # Source0-md5:	a0cdc0c86b3e79c56f09f2af8c4c2c39
 URL:		http://search.cpan.org/dist/Qt/
+BuildRequires:	libstdc++-devel
 BuildRequires:	perl-devel >= 1:5.8.0
+BuildRequires:	qt-devel
 BuildRequires:	rpm-perlprov >= 4.1-13
+BuildRequires:	xorg-lib-libXext-devel
+BuildRequires:	xorg-lib-libXi-devel
+BuildRequires:	xorg-lib-libXt-devel
+BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -37,35 +43,34 @@ Interfejs Perla do Qt.
 
 %prep
 %setup -q -n %{pdir}-%{version}
+%{__sed} 's/ -Wmissing-prototypes / /' -i configure
 
 %build
 %{__perl} Makefile.PL \
 	--with-qt-dir=%{_libdir} \
 	INSTALLDIRS=vendor
 
-%{__make} \
-	CC="%{__cc}" \
-	OPTIMIZE="%{rpmcflags}"
+%{__make}
 
 %{?with_tests:%{__make} test}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} pure_install \
+%{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-cp -a examples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+#install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+#cp -a examples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc Changes CREDITS INSTALL README TODO
-%{perl_vendorarch}/Qt/*.pm
-%dir %{perl_vendorarch}/auto/Qt/
+%doc INSTALL README TODO
+#%{perl_vendorarch}/Qt/*.pm
+#%dir %{perl_vendorarch}/auto/Qt/
 
-%{_mandir}/man3/*
-%{_examplesdir}/%{name}-%{version}
+#%{_mandir}/man3/*
+#%{_examplesdir}/%{name}-%{version}
