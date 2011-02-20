@@ -8,7 +8,7 @@ Summary:	Qt - A Perl module interface to Qt
 Summary(pl.UTF-8):	Qt - interfejs Perla do Qt
 Name:		perl-Qt
 Version:	3.008
-Release:	1
+Release:	2
 License:	GPL
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/Qt/%{pdir}-%{version}.tar.gz
@@ -71,13 +71,22 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %doc INSTALL README TODO
+%attr(755,root,root) %{_bindir}/pqtapi
+%attr(755,root,root) %{_bindir}/pqtsh
+%attr(755,root,root) %{_bindir}/puic
 %{perl_vendorarch}/Qt.pm
 %dir %{perl_vendorarch}/Qt
 %{perl_vendorarch}/Qt/*.pm
 %dir %{perl_vendorarch}/auto/Qt
 %attr(755,root,root) %{perl_vendorarch}/auto/Qt/*.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/Qt/*.so
+%{_mandir}/man1/puic.1*
 %{_mandir}/man3/Qt.3*
+%attr(755,root,root) %{_libdir}/libsmokeqt.so.*.*.*
+%ghost %attr(755,root,root) %{_libdir}/libsmokeqt.so.1
