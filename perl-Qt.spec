@@ -8,7 +8,7 @@ Summary:	Qt - A Perl module interface to Qt
 Summary(pl.UTF-8):	Qt - interfejs Perla do Qt
 Name:		perl-Qt
 Version:	3.008
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/Qt/%{pdir}-%{version}.tar.gz
@@ -47,8 +47,16 @@ Interfejs Perla do Qt.
 
 %build
 %{__perl} Makefile.PL \
+	--prefix=%{_prefix} \
 	--with-qt-dir=%{_libdir} \
 	INSTALLDIRS=vendor
+
+%configure
+
+cd PerlQt
+%{__perl} Makefile.PL \
+	INSTALLDIRS=vendor
+cd ..
 
 %{__make}
 
@@ -60,17 +68,16 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-#install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-#cp -a examples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
 %doc INSTALL README TODO
-#%{perl_vendorarch}/Qt/*.pm
-#%dir %{perl_vendorarch}/auto/Qt/
-
-#%{_mandir}/man3/*
-#%{_examplesdir}/%{name}-%{version}
+%{perl_vendorarch}/Qt.pm
+%dir %{perl_vendorarch}/Qt
+%{perl_vendorarch}/Qt/*.pm
+%dir %{perl_vendorarch}/auto/Qt
+%attr(755,root,root) %{perl_vendorarch}/auto/Qt/*.bs
+%attr(755,root,root) %{perl_vendorarch}/auto/Qt/*.so
+%{_mandir}/man3/Qt.3*
