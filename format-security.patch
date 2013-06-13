@@ -1,0 +1,20 @@
+--- PerlQt-3.008/PerlQt/Qt.xs~	2003-09-19 01:46:33.000000000 +0200
++++ PerlQt-3.008/PerlQt/Qt.xs	2013-06-13 23:05:45.549363391 +0200
+@@ -959,7 +959,7 @@
+             delete[] package;
+ 
+         if(SvTRUE(ERRSV))
+-            croak(SvPV_nolen(ERRSV));
++            croak("%s", SvPV_nolen(ERRSV));
+ 	ST(0) = sv_2mortal(ret);
+ 	XSRETURN(1);
+     }
+@@ -1081,7 +1081,7 @@
+                 else if(isSuper)
+                         delete[] package;
+                 delete[] savestack;
+-                croak(SvPV_nolen(ERRSV));
++                croak("%s", SvPV_nolen(ERRSV));
+             }
+ 
+             // Success. Cache result.

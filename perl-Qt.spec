@@ -13,6 +13,7 @@ License:	GPL
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/Qt/%{pdir}-%{version}.tar.gz
 # Source0-md5:	a0cdc0c86b3e79c56f09f2af8c4c2c39
+Patch0:		format-security.patch
 URL:		http://search.cpan.org/dist/Qt/
 BuildRequires:	libstdc++-devel
 BuildRequires:	perl-devel >= 1:5.8.0
@@ -43,6 +44,8 @@ Interfejs Perla do Qt.
 
 %prep
 %setup -q -n %{pdir}-%{version}
+%patch0 -p1
+
 %{__sed} 's/ -Wmissing-prototypes / /' -i configure
 
 %build
