@@ -87,7 +87,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{perl_vendorarch}/Qt
 %{perl_vendorarch}/Qt/*.pm
 %dir %{perl_vendorarch}/auto/Qt
-%attr(755,root,root) %{perl_vendorarch}/auto/Qt/*.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/Qt/*.so
 %{_mandir}/man1/puic.1*
 %{_mandir}/man3/Qt.3*
