@@ -8,7 +8,7 @@ Summary:	Qt - A Perl module interface to Qt
 Summary(pl.UTF-8):	Qt - interfejs Perla do Qt
 Name:		perl-Qt
 Version:	3.008
-Release:	10
+Release:	11
 License:	GPL
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/Qt/%{pdir}-%{version}.tar.gz
