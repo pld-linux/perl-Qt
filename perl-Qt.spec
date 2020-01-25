@@ -2,7 +2,6 @@
 # Conditional build:
 %bcond_with	tests		# do not perform "make test"
 #
-%include	/usr/lib/rpm/macros.perl
 %define	pdir	PerlQt
 Summary:	Qt - A Perl module interface to Qt
 Summary(pl.UTF-8):	Qt - interfejs Perla do Qt
